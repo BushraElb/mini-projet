@@ -1,0 +1,119 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Mon profil - ElectroAB{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4" style="color: #1c92cf;"><i class="bi bi-person-circle"></i> Mon profil</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Informations personnelles</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <h6 class="mb-3">Informations de connexion</h6>
+                        <div class="mb-3">
+                            <label for="{{ user_form.username.id_for_label }}" class="form-label">Nom d'utilisateur</label>
+                            {{ user_form.username }}
+                            {% if user_form.username.errors %}
+                                <div class="text-danger small">{{ user_form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ user_form.first_name.id_for_label }}" class="form-label">Prénom</label>
+                                {{ user_form.first_name }}
+                                {% if user_form.first_name.errors %}
+                                    <div class="text-danger small">{{ user_form.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Nom</label>
+                                {{ user_form.last_name }}
+                                {% if user_form.last_name.errors %}
+                                    <div class="text-danger small">{{ user_form.last_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="{{ user_form.email.id_for_label }}" class="form-label">Email</label>
+                            {{ user_form.email }}
+                            {% if user_form.email.errors %}
+                                <div class="text-danger small">{{ user_form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h6 class="mb-3">Informations de livraison</h6>
+                        <div class="mb-3">
+                            <label for="{{ customer_form.phone.id_for_label }}" class="form-label">Téléphone</label>
+                            {{ customer_form.phone }}
+                            {% if customer_form.phone.errors %}
+                                <div class="text-danger small">{{ customer_form.phone.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ customer_form.address.id_for_label }}" class="form-label">Adresse</label>
+                            {{ customer_form.address }}
+                            {% if customer_form.address.errors %}
+                                <div class="text-danger small">{{ customer_form.address.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ customer_form.postal_code.id_for_label }}" class="form-label">Code postal</label>
+                                {{ customer_form.postal_code }}
+                                {% if customer_form.postal_code.errors %}
+                                    <div class="text-danger small">{{ customer_form.postal_code.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ customer_form.city.id_for_label }}" class="form-label">Ville</label>
+                                {{ customer_form.city }}
+                                {% if customer_form.city.errors %}
+                                    <div class="text-danger small">{{ customer_form.city.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5">
+                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Actions rapides</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'orders:order_list' %}" class="btn btn-outline-primary w-100 rounded-pill mb-2">
+                        <i class="bi bi-receipt"></i> Mes commandes
+                    </a>
+                    <a href="{% url 'shop:cart_detail' %}" class="btn btn-outline-primary w-100 rounded-pill mb-2">
+                        <i class="bi bi-cart3"></i> Mon panier
+                    </a>
+                    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary w-100 rounded-pill">
+                        <i class="bi bi-shop"></i> Continuer les achats
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

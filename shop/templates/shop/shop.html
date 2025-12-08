@@ -1,0 +1,109 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Boutique - ElectroAB{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Sidebar - Categories -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-funnel"></i> Catégories</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'shop:product_list' %}" 
+                       class="list-group-item list-group-item-action {% if not category %}active{% endif %}">
+                        Toutes les catégories
+                    </a>
+                    {% for cat in categories %}
+                    <a href="{{ cat.get_absolute_url }}" 
+                       class="list-group-item list-group-item-action {% if category.slug == cat.slug %}active{% endif %}">
+                        {{ cat.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="col-md-9">
+            {% if category %}
+                <h2 class="mb-4" style="color: #1c92cf;">{{ category.name }}</h2>
+            {% else %}
+                <h2 class="mb-4" style="color: #1c92cf;">Tous les produits</h2>
+            {% endif %}
+
+            {% if search_query %}
+                <p class="text-muted mb-4">Résultats de recherche pour : <strong>"{{ search_query }}"</strong></p>
+            {% endif %}
+
+            {% if products %}
+                <div class="row g-4">
+                    {% for product in products %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 product-card shadow-sm">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="text-muted small mb-2">{{ product.category.name }}</p>
+                                <p class="fw-bold text-primary fs-5 mb-auto">{{ product.price }} €</p>
+                                {% if product.stock > 0 %}
+                                    <span class="badge bg-success mb-2">En stock</span>
+                                {% else %}
+                                    <span class="badge bg-danger mb-2">Rupture de stock</span>
+                                {% endif %}
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-2">
+                                    Voir le produit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if products.has_other_pages %}
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if products.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ products.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Précédent</a>
+                            </li>
+                        {% endif %}
+                        {% for num in products.paginator.page_range %}
+                            {% if products.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ products.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Suivant</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Aucun produit trouvé.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

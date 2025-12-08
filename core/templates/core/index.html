@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Accueil - ElectroAB{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5" style="background: linear-gradient(135deg, #1c92cf 0%, #4FC3F7 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-white">
+                <h1 class="display-4 fw-bold mb-4">Bienvenue sur ElectroAB</h1>
+                <p class="lead mb-4">Votre destination High-Tech. Découvrez notre sélection de smartphones, laptops et accessoires de qualité.</p>
+                <a href="{% url 'shop:product_list' %}" class="btn btn-light btn-lg rounded-pill px-5">
+                    Découvrir la boutique <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="bi bi-shop-window" style="font-size: 15rem; opacity: 0.3;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+{% if featured_products %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color: #1c92cf;">Produits populaires</h2>
+            <p class="text-muted">Nos produits les plus appréciés</p>
+        </div>
+        <div class="row g-4">
+            {% for product in featured_products %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 product-card shadow-sm">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
+                        <p class="fw-bold text-primary fs-5 mb-auto">{{ product.price }} €</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
+                            Voir le produit
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Latest Products -->
+{% if latest_products %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color: #1c92cf;">Nouveautés</h2>
+            <p class="text-muted">Découvrez nos derniers produits</p>
+        </div>
+        <div class="row g-4">
+            {% for product in latest_products %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 product-card shadow-sm">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
+                        <p class="fw-bold text-primary fs-5 mb-auto">{{ product.price }} €</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
+                            Voir le produit
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                Voir tous les produits
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
