@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4" style="color: #1c92cf;"><i class="bi bi-credit-card"></i> Finaliser la commande</h2>
+    <h2 class="mb-4" style="color: #000;"><i class="bi bi-credit-card"></i> Finaliser la commande</h2>
 
     <div class="row">
         <div class="col-md-8">
@@ -91,14 +91,14 @@
                             {% for item in cart %}
                             <tr>
                                 <td>{{ item.product.name }} x{{ item.quantity }}</td>
-                                <td class="text-end">{{ item.total_price }} €</td>
+                                <td class="text-end">{{ item.total_price }} د.م.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Total</th>
-                                <th class="text-end" style="color: #1c92cf;">{{ cart.get_total_price }} €</th>
+                                <th class="text-end" style="color: #b31b1b;">{{ cart.get_total_price }} د.م.</th>
                             </tr>
                         </tfoot>
                     </table>

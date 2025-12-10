@@ -1,34 +1,54 @@
-"""
-Modèles pour l'application shop
-"""
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
 
 class Category(models.Model):
-    """Modèle pour les catégories de produits"""
     name = models.CharField(max_length=200, db_index=True, verbose_name="Nom")
-    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    slug = models.SlugField(max_length=200, blank=True)
     description = models.TextField(blank=True, verbose_name="Description")
+    image = models.ImageField(upload_to='categories/%Y/%m/%d', blank=True, null=True, verbose_name="Image")
+    parent = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        related_name='children',
+        on_delete=models.CASCADE,
+        verbose_name="Catégorie parente"
+    )
+    is_main_category = models.BooleanField(default=False, verbose_name="Catégorie principale")
+    order = models.PositiveIntegerField(default=0, verbose_name="Ordre d'affichage")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('order', 'name',)
         verbose_name = 'Catégorie'
         verbose_name_plural = 'Catégories'
+        unique_together = [['slug', 'parent']]
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            
+            while Category.objects.filter(slug=slug, parent=self.parent).exclude(pk=self.pk if self.pk else None).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('shop:product_list_by_category', args=[self.slug])
+    
+    def get_subcategories(self):
+        """Retourne les sous-catégories"""
+        return self.children.all()
 
 
 class Product(models.Model):
@@ -49,9 +69,10 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(default=False, verbose_name="Produit populaire")
+    display_order = models.IntegerField(default=0, verbose_name="Ordre d'affichage")
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('display_order', '-created_at',)
         indexes = [
             models.Index(fields=['id', 'slug']),
         ]

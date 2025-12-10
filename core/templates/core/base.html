@@ -19,9 +19,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}" style="text-decoration: none;">
-                <img src="{% static 'images/logo.png' %}" alt="ElectroAB" height="45" width="auto" class="me-2" style="max-height: 45px; object-fit: contain; display: inline-block;">
-                <span class="fw-bold" style="color: #1c92cf; font-size: 1.3rem;">ElectroAB</span>
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}" style="text-decoration: none; line-height: 0; padding: 0; margin: 0;">
+                <img src="{% static 'images/logo.png' %}" alt="ElectroAB" style="max-height: 100px; height: 60px; width: auto; object-fit: contain; display: block; margin: 0; padding: 0; background: transparent; line-height: 0; vertical-align: top;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -31,9 +30,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:home' %}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:product_list' %}">Boutique</a>
+                    {% for main_cat in main_categories %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'shop:product_list_by_category' main_cat.slug %}" id="dropdown{{ main_cat.id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ main_cat.name|upper }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown{{ main_cat.id }}">
+                            <li><a class="dropdown-item fw-bold" href="{% url 'shop:product_list_by_category' main_cat.slug %}">Tous les {{ main_cat.name }}</a></li>
+                            {% if main_cat.get_subcategories %}
+                            <li><hr class="dropdown-divider"></li>
+                            {% for subcat in main_cat.get_subcategories %}
+                            <li><a class="dropdown-item" href="{{ subcat.get_absolute_url }}">{{ subcat.name }}</a></li>
+                            {% endfor %}
+                            {% if main_cat.name == 'Laptops' %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'shop:product_list_by_category' 'apple-macbook' %}">MacBook (Apple)</a></li>
+                            {% endif %}
+                            {% endif %}
+                        </ul>
                     </li>
+                    {% endfor %}
                 </ul>
                 <ul class="navbar-nav">
                     <!-- Search -->
@@ -101,34 +117,47 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light py-5 mt-5">
+    <footer class="py-5 mt-5" style="background-color: #000000; color: #b0b0b0;">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold" style="color: #1c92cf;">ElectroAB</h5>
-                    <p class="text-muted">Votre boutique High-Tech de confiance. Smartphones, Laptops et Accessoires de qualité à des prix compétitifs.</p>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold text-white mb-3">ElectroAB</h5>
+                    <p class="text-muted" style="color: #b0b0b0;">Votre boutique High-Tech de confiance. Smartphones, Laptops et Accessoires de qualité à des prix compétitifs.</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold">Liens rapides</h5>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold text-white mb-3">Liens rapides</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'core:home' %}" class="text-decoration-none text-muted">Accueil</a></li>
-                        <li><a href="{% url 'shop:product_list' %}" class="text-decoration-none text-muted">Boutique</a></li>
+                        <li class="mb-2"><a href="{% url 'core:home' %}" style="color: #b0b0b0; text-decoration: none;">Accueil</a></li>
+                        <li class="mb-2"><a href="{% url 'shop:product_list' %}" style="color: #b0b0b0; text-decoration: none;">Boutique</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'users:profile' %}" class="text-decoration-none text-muted">Mon profil</a></li>
-                            <li><a href="{% url 'orders:order_list' %}" class="text-decoration-none text-muted">Mes commandes</a></li>
+                            <li class="mb-2"><a href="{% url 'users:profile' %}" style="color: #b0b0b0; text-decoration: none;">Mon profil</a></li>
+                            <li class="mb-2"><a href="{% url 'orders:order_list' %}" style="color: #b0b0b0; text-decoration: none;">Mes commandes</a></li>
                         {% endif %}
                     </ul>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold">Contact</h5>
-                    <p class="text-muted">
-                        <i class="bi bi-envelope"></i> contact@electroab.com<br>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold text-white mb-3">Informations</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2" style="color: #b0b0b0;"><i class="bi bi-truck"></i> Livraison partout</li>
+                        <li class="mb-2" style="color: #b0b0b0;"><i class="bi bi-cash-coin"></i> Paiement à la livraison</li>
+                        <li class="mb-2" style="color: #b0b0b0;"><i class="bi bi-clock"></i> Commande 24/7</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold text-white mb-3">Contact</h5>
+                    <p class="mb-2" style="color: #b0b0b0;">
+                        <i class="bi bi-envelope"></i> contact@electroab.com
+                    </p>
+                    <p class="mb-2" style="color: #b0b0b0;">
                         <i class="bi bi-telephone"></i> +33 1 23 45 67 89
+                    </p>
+                    <p style="color: #b0b0b0;">
+                        <i class="bi bi-geo-alt"></i> Adresse de la boutique
                     </p>
                 </div>
             </div>
-            <hr class="my-4">
-            <div class="text-center text-muted">
+            <hr class="my-4" style="border-color: #333333;">
+            <div class="text-center" style="color: #b0b0b0;">
                 <p>&copy; 2024 ElectroAB. Tous droits réservés.</p>
             </div>
         </div>

@@ -35,7 +35,7 @@
                 <a href="{{ product.category.get_absolute_url }}" class="text-decoration-none">{{ product.category.name }}</a>
             </p>
             <div class="mb-4">
-                <span class="display-5 fw-bold" style="color: #1c92cf;">{{ product.price }} €</span>
+                <span class="display-5 fw-bold" style="color: #b31b1b;">{{ product.price }} د.م.</span>
             </div>
             
             {% if product.stock > 0 %}
@@ -75,7 +75,7 @@
     <!-- Related Products -->
     {% if related_products %}
     <div class="mt-5">
-        <h3 class="mb-4" style="color: #1c92cf;">Produits similaires</h3>
+        <h3 class="mb-4" style="color: #000;">Produits similaires</h3>
         <div class="row g-4">
             {% for related in related_products %}
             <div class="col-md-3">
@@ -89,7 +89,7 @@
                     {% endif %}
                     <div class="card-body d-flex flex-column">
                         <h6 class="card-title">{{ related.name }}</h6>
-                        <p class="fw-bold text-primary mb-auto">{{ related.price }} €</p>
+                        <p class="fw-bold mb-auto" style="color: #b31b1b;">{{ related.price }} د.م.</p>
                         <a href="{{ related.get_absolute_url }}" class="btn btn-primary btn-sm rounded-pill mt-2">
                             Voir
                         </a>

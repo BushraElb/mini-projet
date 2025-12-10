@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4" style="color: #1c92cf;"><i class="bi bi-receipt"></i> Mes commandes</h2>
+    <h2 class="mb-4" style="color: #000;"><i class="bi bi-receipt"></i> Mes commandes</h2>
 
     {% if orders %}
         <div class="card shadow-sm">
@@ -27,7 +27,7 @@
                             <tr>
                                 <td><strong>#{{ order.id }}</strong></td>
                                 <td>{{ order.created|date:"d/m/Y H:i" }}</td>
-                                <td><strong>{{ order.get_total_cost }} €</strong></td>
+                                <td><strong>{{ order.get_total_cost }} د.م.</strong></td>
                                 <td>
                                     {% if order.status == 'pending' %}
                                         <span class="badge bg-warning">En attente</span>

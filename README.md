@@ -23,7 +23,7 @@ Un site e-commerce High-Tech complet et moderne développé avec Django et Boots
 
 ## 🎨 Design
 
-- **Palette de couleur** : Bleu #1c92cf
+- **Palette de couleur** : Noir, Blanc, #b31b1b
 - **Framework CSS** : Bootstrap 5
 - **Icônes** : Bootstrap Icons
 - **Design** : Moderne, minimaliste, responsive
@@ -111,6 +111,38 @@ Le projet utilise SQLite par défaut (fichier `db.sqlite3`). Pour utiliser une a
 3. Allez dans **Shop > Products** pour créer des produits
 4. N'oubliez pas de cocher "Produit populaire" pour les afficher sur la page d'accueil
 
+### Uploader des images de produits
+
+#### Méthode 1 : Via l'interface d'administration (Recommandé)
+1. Accédez à `/admin/`
+2. Allez dans **Shop > Produits**
+3. Cliquez sur un produit
+4. Dans le champ "Image", cliquez sur "Choisir un fichier" et sélectionnez votre image
+5. Enregistrez
+
+#### Méthode 2 : Upload en masse via commande
+1. Créez un dossier `product_images` à la racine du projet
+2. Placez vos images dans ce dossier avec des noms correspondant aux produits
+   - Exemple : `iPhone_17_Pro_Max_256GB.jpg` pour le produit "iPhone 17 Pro Max 256GB"
+3. Exécutez la commande :
+   ```bash
+   python manage.py upload_product_images --folder product_images
+   ```
+
+**Options de correspondance :**
+- `--match-by=name` (par défaut) : Cherche les produits dont le nom contient le nom du fichier
+- `--match-by=filename` : Correspondance exacte avec le nom du produit
+- `--match-by=slug` : Correspondance avec le slug du produit
+
+**Exemple :**
+```bash
+# Correspondance par nom (recherche partielle)
+python manage.py upload_product_images --folder product_images --match-by=name
+
+# Correspondance exacte par nom de fichier
+python manage.py upload_product_images --folder product_images --match-by=filename
+```
+
 ### Passer une commande
 
 1. Parcourez la boutique et ajoutez des produits au panier
@@ -126,7 +158,7 @@ Le projet utilise SQLite par défaut (fichier `db.sqlite3`). Pour utiliser une a
 Pour changer la couleur principale, modifiez la variable CSS dans `static/css/style.css` :
 ```css
 :root {
-    --primary-color: #1c92cf; /* Changez cette valeur */
+    --accent-color: #b31b1b; /* Changez cette valeur */
 }
 ```
 

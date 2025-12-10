@@ -13,14 +13,27 @@ def product_list(request, category_slug=None):
     Afficher la liste des produits avec filtrage par catégorie
     """
     category = None
-    categories = Category.objects.all()
+    categories = Category.objects.filter(parent__isnull=True)
     products = Product.objects.filter(available=True)
     search_query = request.GET.get('search', '')
 
-    # Filtrage par catégorie
+    # Filtrage par catégorie (inclut les sous-catégories)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+        # Récupérer tous les produits de la catégorie et de ses sous-catégories
+        subcategories = category.get_subcategories()
+        if subcategories.exists():
+            # Si c'est une catégorie principale, inclure les sous-catégories
+            products = products.filter(
+                Q(category=category) | Q(category__in=subcategories)
+            )
+        else:
+            # Sinon, juste la catégorie
+            products = products.filter(category=category)
+        
+        # Tri spécial pour les iPhone : utiliser display_order défini dans l'admin
+        if category and (category.name == 'iPhone' or (category.parent and category.parent.name == 'Apple' and category.name == 'iPhone')):
+            products = products.order_by('display_order', 'name')
 
     # Recherche
     if search_query:

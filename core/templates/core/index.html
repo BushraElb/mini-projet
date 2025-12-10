@@ -4,52 +4,91 @@
 {% block title %}Accueil - ElectroAB{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section py-5" style="background: linear-gradient(135deg, #1c92cf 0%, #4FC3F7 100%);">
+<!-- Hero Section avec grande image -->
+<section class="hero-section py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 text-white">
-                <h1 class="display-4 fw-bold mb-4">Bienvenue sur ElectroAB</h1>
-                <p class="lead mb-4">Votre destination High-Tech. Découvrez notre sélection de smartphones, laptops et accessoires de qualité.</p>
-                <a href="{% url 'shop:product_list' %}" class="btn btn-light btn-lg rounded-pill px-5">
-                    Découvrir la boutique <i class="bi bi-arrow-right"></i>
+                <h1 class="display-3 fw-bold mb-4">Nouveaux Produits High-Tech</h1>
+                <p class="lead mb-4 fs-5">Découvrez notre sélection premium de smartphones, laptops et accessoires. Qualité garantie, prix compétitifs.</p>
+                <a href="{% url 'shop:product_list' %}" class="btn btn-hero">
+                    Découvrir les produits <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
             <div class="col-lg-6 text-center">
-                <i class="bi bi-shop-window" style="font-size: 15rem; opacity: 0.3;"></i>
+                <img src="{% static 'images/logo2.png' %}" alt="ElectroAB" class="img-fluid" style="max-height: 360px;">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Featured Products -->
-{% if featured_products %}
+<!-- Section Nouveaux iPhone -->
+{% if new_iphones %}
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold mb-3" style="color: #1c92cf;">Produits populaires</h2>
-            <p class="text-muted">Nos produits les plus appréciés</p>
+            <h2 class="fw-bold mb-2" style="color: #000; font-size: 2.5rem;">Nouveau iPhone 17 / iPhone 17 Pro</h2>
+            <p class="text-muted fs-5">Achetez | Maintenant disponible</p>
         </div>
         <div class="row g-4">
-            {% for product in featured_products %}
+            {% for product in new_iphones|slice:":4" %}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 product-card shadow-sm">
+                <div class="card h-100 product-card shadow-sm border-0">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 300px; object-fit: cover;">
                     {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <i class="bi bi-phone text-muted" style="font-size: 4rem;"></i>
                         </div>
                     {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
-                        <p class="fw-bold text-primary fs-5 mb-auto">{{ product.price }} €</p>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
-                            Voir le produit
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                        <p class="fw-bold fs-5 mb-3" style="color: #b31b1b;">{{ product.price }} د.م.</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-black rounded-pill mt-auto">
+                            CHOIX DES OPTIONS
                         </a>
                     </div>
                 </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'shop:product_list_by_category' 'apple-iphone' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                Voir Plus →
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Bannières de catégories -->
+{% if banner_categories %}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for category in banner_categories %}
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none d-block">
+                    {% if category.name == 'Macbook' or category.name == 'MacBook' %}
+                        <img src="{% static 'images/MacbookBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'iPhone' %}
+                        <img src="{% static 'images/iPhoneBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'iPad' %}
+                        <img src="{% static 'images/iPadBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'AirPods' %}
+                        <img src="{% static 'images/AirPodsBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'Watch' %}
+                        <img src="{% static 'images/WatchBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'iMac' %}
+                        <img src="{% static 'images/iMacBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'Samsung' %}
+                        <img src="{% static 'images/SamsungBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'Laptops' %}
+                        <img src="{% static 'images/LaptopsBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% elif category.name == 'Gaming' %}
+                        <img src="{% static 'images/GamingBanner.jpg' %}" alt="{{ category.name }}" class="category-banner-image">
+                    {% endif %}
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -57,13 +96,13 @@
 </section>
 {% endif %}
 
-<!-- Latest Products -->
+<!-- Nouveaux Produits -->
 {% if latest_products %}
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold mb-3" style="color: #1c92cf;">Nouveautés</h2>
-            <p class="text-muted">Découvrez nos derniers produits</p>
+            <h2 class="fw-bold mb-3" style="color: #000;">Nouveaux Produits</h2>
+            <p class="text-muted">Découvrez nos derniers arrivages</p>
         </div>
         <div class="row g-4">
             {% for product in latest_products %}
@@ -79,7 +118,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="text-muted small mb-2">{{ product.category.name }}</p>
-                        <p class="fw-bold text-primary fs-5 mb-auto">{{ product.price }} €</p>
+                        <p class="fw-bold fs-5 mb-auto" style="color: #b31b1b;">{{ product.price }} د.م.</p>
                         <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
                             Voir le produit
                         </a>
@@ -96,5 +135,68 @@
     </div>
 </section>
 {% endif %}
-{% endblock %}
 
+<!-- Best Sellers -->
+{% if best_sellers %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color: #000;">Best Sellers</h2>
+            <p class="text-muted">Nos produits les plus vendus</p>
+        </div>
+        <div class="row g-4">
+            {% for product in best_sellers %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 product-card shadow-sm">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
+                        <p class="fw-bold fs-5 mb-auto" style="color: #b31b1b;">{{ product.price }} د.م.</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
+                            Voir le produit
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Info Section avec 3 onglets -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="d-flex flex-column align-items-center p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-truck fs-1 mb-3" style="color: #b31b1b;"></i>
+                    <h5 class="fw-bold mb-3">LA LIVRAISON</h5>
+                    <p class="text-muted mb-0">Livraison À Domicile Partout Au Maroc. (48h Ville Hors Casa)</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex flex-column align-items-center p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-cash-coin fs-1 mb-3" style="color: #b31b1b;"></i>
+                    <h5 class="fw-bold mb-3">PAIEMENT À LA LIVRAISON</h5>
+                    <p class="text-muted mb-0">Après Avance De Confirmation Pour Les Villes Hors Casa</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex flex-column align-items-center p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-clock fs-1 mb-3" style="color: #b31b1b;"></i>
+                    <h5 class="fw-bold mb-3">COMMANDER 24H/7J</h5>
+                    <p class="text-muted mb-0">Par Site, Instagram Ou Directement Sur Whatsapp</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
