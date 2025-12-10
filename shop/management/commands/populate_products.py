@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 'featured': True,
                 'description': 'iPhone Air avec puce A18 Bionic, écran Super Retina XDR, double caméra 48MP, 128GB.'
             },
-            # iPhone 17 série (dernière) - display_order = 1
+            
             {
                 'name': 'iPhone 17 Pro Max 256GB',
                 'category': iphone_cat,
@@ -119,7 +119,7 @@ class Command(BaseCommand):
                 'stock': 18, 
                 'description': 'iPhone 16e avec puce A17, écran 6.1 pouces, double caméra, 128GB.'
             },
-            # iPhone 15 série - display_order = 3
+            
             {
                 'name': 'iPhone 15 Pro Max 256GB',
                 'category': iphone_cat,
@@ -247,7 +247,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== APPLE - iMac ==========
+        
         imacs = [
             {
                 'name': 'Apple iMac 24 M4 10GB GPU 10GB CPU',
@@ -332,7 +332,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== APPLE - Watch ==========
+        
         watches = [
             {
                 'name': 'Apple Watch Series 10 GPS 45mm',
@@ -359,7 +359,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== APPLE - AirPods ==========
+        
         airpods = [
             {
                 'name': 'AirPods Pro (3ème génération)',
@@ -386,7 +386,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== APPLE - Accessoires ==========
+        
         apple_accessoires = [
             {
                 'name': 'Câble USB-C vers Lightning Apple 1m',
@@ -446,7 +446,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== SAMSUNG - Smartphones ==========
+        
         samsung_phones = [
             {
                 'name': 'Samsung Galaxy S24 Ultra 256GB',
@@ -536,7 +536,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== SAMSUNG - Tablettes ==========
+        
         samsung_tablettes = [
             {
                 'name': 'Samsung Galaxy Tab S9 Ultra 256GB',
@@ -583,7 +583,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== SAMSUNG - Accessoires ==========
+        
         samsung_accessoires = [
             {
                 'name': 'Samsung Galaxy Watch 7 44mm',
@@ -608,7 +608,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== LAPTOPS - ASUS ==========
+        
         asus_laptops = [
             {
                 'name': 'ASUS ZenBook 14 OLED Intel Core i5',
@@ -626,7 +626,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== LAPTOPS - MSI ==========
+        
         msi_laptops = [
             {
                 'name': 'MSI Modern 14 Intel Core i7',
@@ -637,7 +637,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== LAPTOPS - HP ==========
+        
         hp_laptops = [
             {
                 'name': 'HP Pavilion Plus 14" Intel Core i7',
@@ -655,7 +655,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== LAPTOPS - Dell ==========
+        
         dell_laptops = [
             {
                 'name': 'Dell XPS 13 Intel Core i7',
@@ -673,7 +673,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== LAPTOPS - Macbook ==========
+        
         macbook_laptops = [
             {
                 'name': 'MacBook Pro 16" M4 Max 1TB',
@@ -693,7 +693,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== GAMING - MSI ==========
+        
         msi_gaming = [
             {
                 'name': 'MSI Raider GE78 HX 17" Intel i9 RTX 4090',
@@ -712,7 +712,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== GAMING - ROG ==========
+        
         rog_gaming = [
             {
                 'name': 'ASUS ROG Strix G18 Intel i9 RTX 4080',
@@ -731,7 +731,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== GAMING - HP Victus ==========
+        
         hp_victus = [
             {
                 'name': 'HP Victus 16" AMD Ryzen 7 RTX 4060',
@@ -749,7 +749,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== GAMING - Lenovo Legion ==========
+        
         lenovo_legion = [
             {
                 'name': 'Lenovo Legion Pro 7i 16" Intel i9 RTX 4090',
@@ -768,7 +768,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # ========== GAMING - Razer ==========
+        
         razer_gaming = [
             {
                 'name': 'Razer Blade 18 Intel i9 RTX 4090',
@@ -787,7 +787,7 @@ class Command(BaseCommand):
             },
         ]
         
-        # Créer tous les produits
+        
         all_products = (
             iphones + ipads + imacs + macminis + macbooks + watches + airpods + apple_accessoires +
             samsung_phones + samsung_tablettes + samsung_accessoires +
@@ -807,7 +807,7 @@ class Command(BaseCommand):
                     created_count += 1
                     self.stdout.write(self.style.SUCCESS(f'[OK] Cree: {product.name}'))
                 else:
-                    # Mettre à jour display_order même si le produit existe déjà
+                    
                     if 'display_order' in product_data:
                         product.display_order = product_data['display_order']
                         product.save()
