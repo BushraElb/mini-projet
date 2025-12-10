@@ -91,14 +91,14 @@
                             {% for item in cart %}
                             <tr>
                                 <td>{{ item.product.name }} x{{ item.quantity }}</td>
-                                <td class="text-end">{{ item.total_price }} د.م.</td>
+                                <td class="text-end">{{ item.total_price }} DH</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Total</th>
-                                <th class="text-end" style="color: #b31b1b;">{{ cart.get_total_price }} د.م.</th>
+                                <th class="text-end" style="color: #b31b1b;">{{ cart.get_total_price }} DH</th>
                             </tr>
                         </tfoot>
                     </table>

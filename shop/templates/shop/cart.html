@@ -38,7 +38,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ item.price }} د.م.</td>
+                                    <td>{{ item.price }} DH</td>
                                     <td>
                                         <form action="{% url 'shop:cart_update' item.product.id %}" method="post" class="d-inline">
                                             {% csrf_token %}
@@ -46,7 +46,7 @@
                                                    class="form-control form-control-sm" style="width: 80px;" onchange="this.form.submit()">
                                         </form>
                                     </td>
-                                    <td><strong>{{ item.total_price }} د.م.</strong></td>
+                                    <td><strong>{{ item.total_price }} DH</strong></td>
                                     <td>
                                         <form action="{% url 'shop:cart_remove' item.product.id %}" method="post" class="d-inline">
                                             {% csrf_token %}
@@ -77,7 +77,7 @@
                         <hr>
                         <div class="d-flex justify-content-between mb-3">
                             <span class="fs-5">Total:</span>
-                            <strong class="fs-4" style="color: #b31b1b;">{{ cart.get_total_price }} د.م.</strong>
+                            <strong class="fs-4" style="color: #b31b1b;">{{ cart.get_total_price }} DH</strong>
                         </div>
                         {% if user.is_authenticated %}
                             <a href="{% url 'orders:order_create' %}" class="btn btn-primary btn-lg w-100 rounded-pill">

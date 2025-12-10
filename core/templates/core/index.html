@@ -43,9 +43,9 @@
                     {% endif %}
                     <div class="card-body d-flex flex-column text-center">
                         <h5 class="card-title fw-bold">{{ product.name }}</h5>
-                        <p class="fw-bold fs-5 mb-3" style="color: #b31b1b;">{{ product.price }} د.م.</p>
+                        <p class="fw-bold fs-5 mb-3" style="color: #b31b1b;">{{ product.price }} DH</p>
                         <a href="{{ product.get_absolute_url }}" class="btn btn-black rounded-pill mt-auto">
-                            CHOIX DES OPTIONS
+                            VOIR PLUS
                         </a>
                     </div>
                 </div>
@@ -101,35 +101,34 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold mb-3" style="color: #000;">Nouveaux Produits</h2>
-            <p class="text-muted">Découvrez nos derniers arrivages</p>
+            <h2 class="fw-bold mb-2" style="color: #000; font-size: 2.5rem;">Nouveaux Produits</h2>
+            <p class="text-muted fs-5">Découvrez nos derniers arrivages</p>
         </div>
         <div class="row g-4">
-            {% for product in latest_products %}
+            {% for product in latest_products|slice:":4" %}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 product-card shadow-sm">
+                <div class="card h-100 product-card shadow-sm border-0">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 300px; object-fit: cover;">
                     {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <i class="bi bi-phone text-muted" style="font-size: 4rem;"></i>
                         </div>
                     {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
-                        <p class="fw-bold fs-5 mb-auto" style="color: #b31b1b;">{{ product.price }} د.م.</p>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
-                            Voir le produit
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                        <p class="fw-bold fs-5 mb-3" style="color: #b31b1b;">{{ product.price }} DH</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-black rounded-pill mt-auto">
+                            VOIR PLUS
                         </a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        <div class="text-center mt-5">
+        <div class="text-center mt-4">
             <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5">
-                Voir tous les produits
+                Voir Plus →
             </a>
         </div>
     </div>
@@ -141,26 +140,25 @@
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold mb-3" style="color: #000;">Best Sellers</h2>
-            <p class="text-muted">Nos produits les plus vendus</p>
+            <h2 class="fw-bold mb-2" style="color: #000; font-size: 2.5rem;">Best Sellers</h2>
+            <p class="text-muted fs-5">Nos produits les plus vendus</p>
         </div>
         <div class="row g-4">
-            {% for product in best_sellers %}
+            {% for product in best_sellers|slice:":4" %}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 product-card shadow-sm">
+                <div class="card h-100 product-card shadow-sm border-0">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 300px; object-fit: cover;">
                     {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <i class="bi bi-phone text-muted" style="font-size: 4rem;"></i>
                         </div>
                     {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="text-muted small mb-2">{{ product.category.name }}</p>
-                        <p class="fw-bold fs-5 mb-auto" style="color: #b31b1b;">{{ product.price }} د.م.</p>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill mt-3">
-                            Voir le produit
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                        <p class="fw-bold fs-5 mb-3" style="color: #b31b1b;">{{ product.price }} DH</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-black rounded-pill mt-auto">
+                            VOIR PLUS
                         </a>
                     </div>
                 </div>

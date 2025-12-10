@@ -146,7 +146,20 @@ body {
 }
 
 /* Category sidebar */
-.list-group-item.active {
+.category-filter-item {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: white !important;
+    transition: all 0.3s ease;
+}
+
+.category-filter-item:hover {
+    background-color: #333333 !important;
+    border-color: #333333 !important;
+    color: white !important;
+}
+
+.category-filter-item.active {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
     color: white !important;
@@ -276,6 +289,12 @@ body {
 .form-control:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+}
+
+/* Search input in navbar */
+.search-input {
+    font-size: 0.875rem;
+    min-width: 200px;
 }
 
 /* Tables */

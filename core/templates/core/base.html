@@ -26,7 +26,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav ms-auto me-3">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:home' %}">Accueil</a>
                     </li>
@@ -54,11 +54,11 @@
                 <ul class="navbar-nav">
                     <!-- Search -->
                     <li class="nav-item me-3">
-                        <form class="d-flex" method="get" action="{% url 'shop:product_list' %}">
-                            <input class="form-control me-2" type="search" name="search" placeholder="Rechercher..." 
-                                   value="{{ request.GET.search }}" aria-label="Search">
-                            <button class="btn btn-outline-primary rounded-pill" type="submit">
-                                <i class="bi bi-search"></i>
+                        <form class="d-flex align-items-center" method="get" action="{% url 'shop:product_list' %}">
+                            <input class="form-control form-control-sm search-input" type="search" name="search" placeholder="Rechercher..." 
+                                   value="{{ request.GET.search }}" aria-label="Search" style="height: 32px; padding: 0.25rem 0.75rem;">
+                            <button class="btn btn-outline-primary rounded-pill ms-2" type="submit" style="height: 32px; padding: 0.25rem 0.75rem;">
+                                <i class="bi bi-funnel"></i>
                             </button>
                         </form>
                     </li>
