@@ -49,9 +49,14 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-primary rounded-pill">
-                                        <i class="bi bi-eye"></i> Voir
-                                    </a>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-primary rounded-pill">
+                                            <i class="bi bi-eye"></i> Voir
+                                        </a>
+                                        <a href="{% url 'orders:order_invoice' order.id %}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">
+                                            <i class="bi bi-printer"></i> Facture
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             {% endfor %}

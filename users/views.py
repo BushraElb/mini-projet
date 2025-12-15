@@ -2,11 +2,11 @@
 Vues pour l'application users
 """
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UserRegistrationForm, UserUpdateForm, CustomerUpdateForm
+from .forms import UserRegistrationForm, UserUpdateForm, CustomerUpdateForm, CustomPasswordChangeForm
 from .models import Customer
 
 
@@ -55,4 +55,24 @@ def profile(request):
         'customer_form': customer_form,
     }
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def change_password(request):
+    """
+    Changer le mot de passe de l'utilisateur
+    """
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important pour maintenir la session
+            messages.success(request, 'Votre mot de passe a été modifié avec succès!')
+            return redirect('users:profile')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs ci-dessous.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+    
+    return render(request, 'users/change_password.html', {'form': form})
 

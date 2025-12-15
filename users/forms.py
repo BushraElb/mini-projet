@@ -2,7 +2,7 @@
 Formulaires pour l'application users
 """
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from .models import Customer
 
@@ -65,4 +65,22 @@ class CustomerUpdateForm(forms.ModelForm):
             'postal_code': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    """Formulaire personnalisé pour le changement de mot de passe"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Mot de passe actuel'
+        })
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nouveau mot de passe'
+        })
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Confirmer le nouveau mot de passe'
+        })
 

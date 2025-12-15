@@ -26,7 +26,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto me-3">
+                <ul class="navbar-nav ms-auto me-3 align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:home' %}">Accueil</a>
                     </li>
@@ -51,9 +51,9 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav align-items-center">
                     <!-- Search -->
-                    <li class="nav-item me-3">
+                    <li class="nav-item me-3 d-flex align-items-center">
                         <form class="d-flex align-items-center" method="get" action="{% url 'shop:product_list' %}">
                             <input class="form-control form-control-sm search-input" type="search" name="search" placeholder="Rechercher..." 
                                    value="{{ request.GET.search }}" aria-label="Search" style="height: 32px; padding: 0.25rem 0.75rem;">
@@ -63,8 +63,8 @@
                         </form>
                     </li>
                     <!-- Cart -->
-                    <li class="nav-item me-3">
-                        <a class="nav-link position-relative" href="{% url 'shop:cart_detail' %}">
+                    <li class="nav-item me-3 d-flex align-items-center">
+                        <a class="nav-link position-relative d-flex align-items-center" href="{% url 'shop:cart_detail' %}" style="line-height: 1;">
                             <i class="bi bi-cart3 fs-5"></i>
                             {% if cart|length > 0 %}
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
@@ -75,23 +75,28 @@
                     </li>
                     <!-- User -->
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle"></i> {{ user.username }}
+                        <li class="nav-item dropdown d-flex align-items-center">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" style="line-height: 1;">
+                                <i class="bi bi-person-circle me-1"></i> {{ user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Mon profil</a></li>
                                 <li><a class="dropdown-item" href="{% url 'orders:order_list' %}">Mes commandes</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'users:logout' %}">Déconnexion</a></li>
+                                <li>
+                                    <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item" style="border: none; background: none; width: 100%; text-align: left; padding: 0.25rem 1rem;">Déconnexion</button>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center">
                             <a class="nav-link" href="{% url 'users:login' %}">Connexion</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary rounded-pill px-4" href="{% url 'users:register' %}">Inscription</a>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="btn btn-primary rounded-pill px-4" href="{% url 'users:register' %}" style="background-color: #b31b1b; border: none;">Inscription</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -149,10 +154,10 @@
                         <i class="bi bi-envelope"></i> contact@electroab.com
                     </p>
                     <p class="mb-2" style="color: #b0b0b0;">
-                        <i class="bi bi-telephone"></i> +33 1 23 45 67 89
+                        <i class="bi bi-telephone"></i> +212 6 23 45 67 89
                     </p>
                     <p style="color: #b0b0b0;">
-                        <i class="bi bi-geo-alt"></i> Adresse de la boutique
+                        <i class="bi bi-geo-alt"></i> ElectroAB MA
                     </p>
                 </div>
             </div>

@@ -4,27 +4,65 @@
 {% block title %}Commande confirmée - ElectroAB{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            <div class="card shadow-sm">
-                <div class="card-body py-5">
-                    <div class="mb-4">
-                        <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: #b31b1b;"></i>
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4 text-center">
+                    <!-- Success Icon -->
+                    <div class="mb-3">
+                        <i class="bi bi-check-circle-fill" style="font-size: 4rem; color: #b31b1b;"></i>
                     </div>
-                    <h2 class="mb-3" style="color: #000;">Commande confirmée !</h2>
-                    <p class="lead mb-4">Merci pour votre commande. Votre numéro de commande est :</p>
-                    <h3 class="mb-4"><strong>#{{ order.id }}</strong></h3>
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> 
-                        <strong>Mode de paiement :</strong> Paiement à la livraison<br>
-                        Vous recevrez un email de confirmation à l'adresse : <strong>{{ order.email }}</strong>
+                    
+                    <!-- Success Message -->
+                    <h1 class="mb-2 fw-bold" style="color: #000; font-size: 2rem;">Commande confirmée !</h1>
+                    <p class="text-muted mb-3">Merci pour votre achat. Votre commande a été enregistrée avec succès.</p>
+                    
+                    <!-- Order Number -->
+                    <div class="mb-3 p-2" style="background-color: #f8f9fa; border-radius: 8px; display: inline-block;">
+                        <p class="mb-0 text-muted small">Numéro de commande</p>
+                        <h3 class="mb-0 fw-bold" style="color: #b31b1b; font-size: 1.5rem;">#{{ order.id }}</h3>
                     </div>
-                    <div class="mt-4">
-                        <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-primary btn-lg rounded-pill px-5 me-2">
+                    
+                    <!-- Order Summary -->
+                    <div class="row mt-3 mb-3">
+                        <div class="col-md-6 mb-2">
+                            <div class="p-3" style="background-color: #f8f9fa; border-radius: 8px;">
+                                <i class="bi bi-calendar-check" style="font-size: 1.5rem; color: #b31b1b; margin-bottom: 5px;"></i>
+                                <h6 class="fw-bold mb-1">Date de commande</h6>
+                                <p class="text-muted mb-0 small">{{ order.created|date:"d/m/Y H:i" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="p-3" style="background-color: #f8f9fa; border-radius: 8px;">
+                                <i class="bi bi-currency-exchange" style="font-size: 1.5rem; color: #b31b1b; margin-bottom: 5px;"></i>
+                                <h6 class="fw-bold mb-1">Montant total</h6>
+                                <p class="mb-0" style="font-size: 1.25rem; color: #b31b1b; font-weight: bold;">{{ order.get_total_cost }} DH</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Info -->
+                    <div class="alert alert-light border mb-3 py-2" style="background-color: #fff; border-color: #dee2e6 !important;">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-info-circle-fill me-2" style="color: #b31b1b; font-size: 1.25rem; margin-top: 2px;"></i>
+                            <div class="text-start small">
+                                <strong class="d-block mb-1">Informations importantes</strong>
+                                <p class="mb-0 small"><strong>Mode de paiement :</strong> {{ order.get_payment_method_display }}</p>
+                                <p class="mb-0 small"><strong>Email :</strong> {{ order.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="mt-3 d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                        <a href="{% url 'orders:order_detail' order.id %}" class="btn rounded-pill px-4" style="background-color: #b31b1b; color: white; border: none;">
                             <i class="bi bi-receipt"></i> Voir les détails
                         </a>
-                        <a href="{% url 'core:home' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                        <a href="{% url 'orders:order_invoice' order.id %}" target="_blank" class="btn rounded-pill px-4" style="background-color: #b31b1b; color: white; border: none;">
+                            <i class="bi bi-printer"></i> Imprimer la facture
+                        </a>
+                        <a href="{% url 'core:home' %}" class="btn btn-outline-secondary rounded-pill px-4" style="border-color: #b31b1b; color: #b31b1b;">
                             Retour à l'accueil
                         </a>
                     </div>

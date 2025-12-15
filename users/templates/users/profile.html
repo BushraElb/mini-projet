@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header" style="background-color: #b31b1b; color: white;">
                     <h5 class="mb-0">Informations personnelles</h5>
                 </div>
                 <div class="card-body">
@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5">
+                        <button type="submit" class="btn btn-lg rounded-pill px-5" style="background-color: #b31b1b; color: white; border: none;">
                             <i class="bi bi-check-circle"></i> Enregistrer les modifications
                         </button>
                     </form>
@@ -96,18 +96,29 @@
         </div>
 
         <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header" style="background-color: #b31b1b; color: white;">
+                    <h5 class="mb-0">Sécurité</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'users:change_password' %}" class="btn w-100 rounded-pill mb-2" style="background-color: #b31b1b; color: white; border: none;">
+                        <i class="bi bi-key"></i> Changer le mot de passe
+                    </a>
+                </div>
+            </div>
+            
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header" style="background-color: #b31b1b; color: white;">
                     <h5 class="mb-0">Actions rapides</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{% url 'orders:order_list' %}" class="btn btn-outline-primary w-100 rounded-pill mb-2">
+                    <a href="{% url 'orders:order_list' %}" class="btn btn-outline-secondary w-100 rounded-pill mb-2" style="border-color: #b31b1b; color: #b31b1b;">
                         <i class="bi bi-receipt"></i> Mes commandes
                     </a>
-                    <a href="{% url 'shop:cart_detail' %}" class="btn btn-outline-primary w-100 rounded-pill mb-2">
+                    <a href="{% url 'shop:cart_detail' %}" class="btn btn-outline-secondary w-100 rounded-pill mb-2" style="border-color: #b31b1b; color: #b31b1b;">
                         <i class="bi bi-cart3"></i> Mon panier
                     </a>
-                    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary w-100 rounded-pill">
+                    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-secondary w-100 rounded-pill" style="border-color: #b31b1b; color: #b31b1b;">
                         <i class="bi bi-shop"></i> Continuer les achats
                     </a>
                 </div>
