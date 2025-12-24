@@ -31,7 +31,7 @@ def home(request):
             available=True
         ).order_by('display_order', 'name')[:12]
     
-    # Catégories pour les bannières (dans l'ordre spécifique)
+    # Catégories pour les bannières 
     banner_categories = []
     category_names = ['iPhone', 'iPad', 'Macbook', 'AirPods', 'Watch', 'iMac', 'Samsung', 'Laptops', 'Gaming']
     
